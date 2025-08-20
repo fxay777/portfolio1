@@ -1,13 +1,9 @@
 from django.contrib import admin
-from .models import Post, PortfolioProject
+from .models import Post
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("id", "titulo", "autor", "criado_em")  # ajuste os nomes dos campos conforme estão no seu models.py
-    search_fields = ("titulo", "conteudo")
-    list_filter = ("criado_em", "autor")
-
-@admin.register(PortfolioProject)
-class PortfolioProjectAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "data_criacao", "data_atualizacao")
-    search_fields = ("titulo", "descricao")
+    list_display = ('title', 'slug', 'author', 'status', 'created_on')
+    list_filter = ('status', 'created_on', 'author')
+    search_fields = ('title', 'content')
+    prepopulated_fields = {'slug': ('title',)}
